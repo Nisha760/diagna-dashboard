@@ -35,8 +35,8 @@ export const Table = ({
   return (
     <div className={s.loader_wrapper}>
       {
-        Array.from({length: 10}).map(el => (
-          <div className={s.table_shimmer_box}></div>
+        Array.from({length: 10}).map((el, index) => (
+          <div key={index} className={s.table_shimmer_box}></div>
         ))
       }
     </div>
