@@ -1,0 +1,1 @@
+export { PatientStayList as default } from "./PatientsStayList";

@@ -1,0 +1,36 @@
+.sidebarItem {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 4px;
+  }
+  
+  .sidebarItem:hover {
+    opacity: 0.8;
+    background-color: var(--grey-200);
+  }
+
+  .sidebarItem.active {
+    background-color: var(--grey-200);
+  }
+  
+  .icon {
+    margin-right: 12px;
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .sidebarItem .title {
+    font-size: 16px;
+    color: #333;
+    text-transform: capitalize;
+    transition: all 0.5s ease-out;
+  }
+
+  .sidebarItem .title.is_collapsed {
+    width: 0;
+    overflow: hidden;
+  }
+  

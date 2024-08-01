@@ -1,0 +1,31 @@
+
+.root {
+    display: flex;
+    border: 1px solid var(--dark-blue);
+    border-radius: 2px;
+    width: fit-content;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.root>div {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.root>div:first-of-type, .root>div:last-of-type {
+    width: fit-content;
+    cursor: pointer;
+    background-color: var(--blue-900);;
+    padding: 0 12px 0;
+    color: var(--white);
+    border-radius: 2px;
+}
+
+.root>div:first-of-type:hover, .root>div:last-of-type:hover {
+    opacity: 0.8;
+}

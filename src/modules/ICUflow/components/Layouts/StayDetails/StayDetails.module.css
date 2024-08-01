@@ -1,0 +1,47 @@
+.show_stay_details_btn {
+  background-color: var(--blue-700);
+  border: none;
+  color: var(--white);
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.show_stay_details_btn:hover {
+  opacity: 0.8;
+}
+
+.stay_card {
+    background-color: var(--white);
+    border-radius: 8px;
+    padding: 16px;
+    max-width: 500px;
+  }
+  
+  .stay_card h2 {
+    margin-bottom: 16px;
+    color: var(--blue-900);
+  }
+    
+  .stay_card_item {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+  }
+  
+  .stay_card_label {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .stay_card_value {
+    margin-left: 10px;
+    color: #555;
+  }
+  

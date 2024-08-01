@@ -1,0 +1,1 @@
+export { StayDetailsWithSideBar as default } from "./StayDetails";
