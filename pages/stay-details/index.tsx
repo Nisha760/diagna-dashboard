@@ -6,3 +6,5 @@ const Comp = () => {
 }
 
 export default Comp;
+
+// all details related to stay is provided here

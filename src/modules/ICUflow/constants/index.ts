@@ -1,6 +1,7 @@
+import { ColumnHeaderItem } from "../types";
 
 
-export const StayDetailsColumnHeader = [
+export const StayDetailsColumnHeader: ColumnHeaderItem[] = [
     {
         key: "stayId",
         title: "Stay Id",
@@ -37,7 +38,7 @@ export const StayDetailsColumnHeader = [
 
 
 
-export const RecordColumnHeaders = [
+export const RecordColumnHeaders: ColumnHeaderItem[] = [
     {
         key: "stayId",
         title: "Stay Id",
@@ -73,7 +74,7 @@ export const RecordColumnHeaders = [
 ]
 
 
-export const NeurologyRecordColumnHeaders = [
+export const NeurologyRecordColumnHeaders: ColumnHeaderItem[] = [
     ...RecordColumnHeaders,
     {
         key: "type",
@@ -81,7 +82,7 @@ export const NeurologyRecordColumnHeaders = [
     }
 ]
 
-export const VentilationRecordColumnHeaders = [
+export const VentilationRecordColumnHeaders: ColumnHeaderItem[] = [
     ...RecordColumnHeaders,
     {
         key: "paramType",

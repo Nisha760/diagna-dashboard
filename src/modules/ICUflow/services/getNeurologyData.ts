@@ -42,6 +42,6 @@ export const getNeurologyData = async ({
             }
         }
     } else {
-        return {error}
+        return { error: error || "Something went wrong!" }
     }
 }

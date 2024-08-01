@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
-
-import s from './SidebarItem.module.css'; 
+import React from 'react';
 import classNames from 'classnames';
 
+import s from './SidebarItem.module.css'; 
 
 
-interface SidebarItemProps {
+
+type SidebarItemProps = {
   icon: React.ReactNode;
   title: string;
   onClick?: () => void;

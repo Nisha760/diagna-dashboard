@@ -20,6 +20,6 @@ export const getAllStays = async ({
             response: serializedData
         }
     } else {
-        return {error}
+        return { error: error || "Something went wrong!" }
     }
 }

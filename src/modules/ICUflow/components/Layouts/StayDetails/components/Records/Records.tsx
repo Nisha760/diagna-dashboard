@@ -1,33 +1,47 @@
+import { useEffect, useMemo, useState } from "react"
+
 import SelectDropdown from "@/src/common/components/SelectDropdown";
 import Table from "@/src/common/components/Table";
 import { RecordsType } from "@/src/modules/ICUflow/constants"
 import { DefaultSelectedType, NeurologyTypes, VentilationTypes } from "@/src/modules/ICUflow/constants/recordFilters";
 import { getLabsData } from "@/src/modules/ICUflow/services/getLabsData";
-import { useEffect, useMemo, useState } from "react"
-import s from './Records.module.css';
 import { getDateRange } from "@/src/modules/ICUflow/services/getDateRange";
 import { getVentilationData } from "@/src/modules/ICUflow/services/getVentilationData";
 import { getNeurologyData } from "@/src/modules/ICUflow/services/getNeurologyData";
+import s from './Records.module.css';
+import { NeurologyRecordItem, RecordItem, VentilationRecordItem } from "@/src/modules/ICUflow/types/Records";
+import { ColumnHeaderItem } from "@/src/modules/ICUflow/types";
 
+
+type RecordsProps = {
+    tableType: RecordsType;
+    stayId: number
+}
+type RecordDataStateType = {
+    data: RecordItem[] | VentilationRecordItem[] | NeurologyRecordItem[],
+    columnHeader: ColumnHeaderItem[]
+}
 
 export const Records = ({
     tableType,
     stayId
-}: { tableType: RecordsType; stayId: number }) => {
+}: RecordsProps) => {
 
-    const [records, setRecords] = useState({
+    //states
+    const [records, setRecords] = useState<RecordDataStateType>({
         data: [],
         columnHeader: []
-    });
+    }); // stores information for  all the records
     const [isLoading, setIsLoading] = useState(true);
-    const [selectedType, setSelectedType] = useState<string | null>(DefaultSelectedType.value);
-    const [selectedDate, setSelectedDate] = useState<string>('');
+    const [selectedType, setSelectedType] = useState<string | null>(DefaultSelectedType.value);  // stores the selected type from type filter
+    const [selectedDate, setSelectedDate] = useState<string>(''); // stores the date selected by the user
     const [dateRange, setDateRange] = useState({
         startTime: '',
         endTime: ''
-    });
+    }); // stores date range for which the data is present of a particular stay id and table
 
 
+    //functions
     const fetchRecords = async ({
         sId = stayId,
         date = selectedDate,
@@ -65,10 +79,11 @@ export const Records = ({
         if (response) {
             setRecords(response)
         } else if (error) {
-
+            alert(error)
         }
         setIsLoading(false);
     }
+
 
     const fetchDateRange = async () => {
         const { response, error } = await getDateRange({
@@ -79,12 +94,25 @@ export const Records = ({
         if (response) {
             setDateRange(response);
             setSelectedDate(response.endTime);
-            return {endTime: response.endTime};
-        } 
+            return { endTime: response.endTime };
+        } else if(error) {
+            alert(error)
+        }
 
-        return {endTime: ''};
+        return { endTime: '' };
     }
 
+    const fetchData = async () => {
+        const { endTime } = await fetchDateRange();
+
+        await fetchRecords({
+            date: endTime
+        })
+    }
+
+
+
+    //memo
     const typeFilterOptions = useMemo(() => {
         switch (tableType) {
             case RecordsType.Neurology:
@@ -99,14 +127,7 @@ export const Records = ({
     }, [tableType])
 
 
-    const fetchData = async () => {
-        const {endTime} = await fetchDateRange();
-
-        await fetchRecords({
-            date: endTime
-        })
-    }
-
+    //effects
     useEffect(() => {
         if (tableType) {
             setSelectedType(DefaultSelectedType.value);
@@ -116,7 +137,7 @@ export const Records = ({
 
 
     return (
-        <div>
+        <>
             <div className={s.filter}>
                 {
                     dateRange.endTime && dateRange.startTime &&
@@ -148,14 +169,14 @@ export const Records = ({
                         placeholder="Select Type"
                     />
                 }
-
-
             </div>
+
+
             <Table
                 columns={records.columnHeader}
                 data={records.data}
                 isLoading={isLoading}
             />
-        </div>
+        </>
     )
 }

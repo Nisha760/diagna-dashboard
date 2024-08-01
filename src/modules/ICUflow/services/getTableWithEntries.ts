@@ -25,6 +25,6 @@ export const getTableWithEntries = async ({
 
         return { response: recordsWithEntries }
     } else {
-        return { error }
+        return { error: error || "Something went wrong!" }
     }
 }

@@ -1,6 +1,6 @@
 
-import { useState } from 'react';
 import s from './Pagination.module.css';
+
 
 
 type PaginationProps = {
@@ -14,8 +14,6 @@ export const Pagination = ({
     onPageChange,
     isNextDisabled
 }: PaginationProps) => {
-
-
 
     return (
         <div className={s.root}>

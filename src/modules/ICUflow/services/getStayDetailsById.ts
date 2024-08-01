@@ -18,6 +18,6 @@ export const getStayDetailsById = async ({
         const serializedData = response.data.length ? formatStayDetails(response.data[0]) : null
         return {response: serializedData}
     } else {
-        return {error}
+        return { error: error || "Something went wrong!" }
     }
 }

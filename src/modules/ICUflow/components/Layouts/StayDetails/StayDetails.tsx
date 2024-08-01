@@ -1,25 +1,29 @@
 import { useEffect, useMemo, useState } from 'react';
 import { BsClipboardData } from "react-icons/bs";
+import { useRouter } from 'next/router';
 
 import styles from './StayDetails.module.css';
 import { getStayDetailsById } from '../../../services/getStayDetailsById';
-import { useRouter } from 'next/router';
-import { StayItem } from '../../../types/Stays';
 import { RecordsType, SideBarState, StayDetailsColumnHeader } from '../../../constants';
 import SideBar from '@/src/common/components/SideBar';
 import { getTableWithEntries } from '../../../services/getTableWithEntries';
 import SidebarItem from './components/SideBarItem';
 import Records from './components/Records';
 import Modal from '@/src/common/components/Modal';
+import { RowItem } from '../../../types';
 
 
 
 export const StayDetails = () => {
+    //hooks
     const router = useRouter();
 
-    const [stayDetails, setStayDetails] = useState<StayItem>();
+    //states
+    const [stayDetails, setStayDetails] = useState<RowItem>();
     const [showStayDetails, setShowStayDetails] = useState(false);
 
+
+    //functions
     const fetchStayDetails = async () => {
         const { response, error } = await getStayDetailsById({
             stayId: Number(router.query.stay_id)
@@ -28,9 +32,11 @@ export const StayDetails = () => {
         if (response) {
             setStayDetails(response)
         } else if (error) {
-
+            alert(error)
         }
     }
+
+    //effects
 
     useEffect(() => {
         if (router.isReady) {
@@ -79,12 +85,15 @@ export const StayDetails = () => {
 }
 
 export const StayDetailsWithSideBar = () => {
+    //hooks
     const router = useRouter();
 
+    //states
     const [recordsTypeList, setRecordTypeList] = useState<{ key: string; title: string; }[]>([]);
     const [sidebarState, setSidebarState] = useState<SideBarState>();
 
 
+    //functions
     const fetchRecordTypeWithData = async () => {
         const { response, error } = await getTableWithEntries({
             stayId: Number(router.query.stay_id)
@@ -105,10 +114,12 @@ export const StayDetailsWithSideBar = () => {
                 )
             }
         } else if (error) {
-
+            alert(error);
         }
     }
 
+
+    //memo
     const sideBarContent = useMemo(() => {
         if (recordsTypeList.length) {
             return (
@@ -136,7 +147,7 @@ export const StayDetailsWithSideBar = () => {
         }
     }, [recordsTypeList, sidebarState, router.query.record_type])
 
-
+//effects
     useEffect(() => {
         if (router.isReady && router.query.stay_id) {
             fetchRecordTypeWithData();

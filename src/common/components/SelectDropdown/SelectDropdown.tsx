@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import s from  './SelectDropdown.module.css';
 import classNames from 'classnames';
+
+import s from './SelectDropdown.module.css';
 import { Option } from '@/src/modules/ICUflow/types';
+
+
 
 type SelectProps = {
   options: Option[];
@@ -10,13 +13,31 @@ type SelectProps = {
   placeholder?: string;
 }
 
+
+
 export const SelectDropdown = ({ options, value, onChange, placeholder }: SelectProps) => {
+  // states
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
+
+
+  //refs
   const selectRef = useRef<HTMLDivElement>(null);
 
+
+  // functions
+  const toggleOpen = () => setIsOpen(prev => !prev);
+
+  const handleOptionClick = (option: Option) => {
+    setSelectedOption(option);
+    onChange(option.value);
+    setIsOpen(false);
+  };
+
+
+  //Effects
   useEffect(() => {
-      setSelectedOption(options.find(option => option.value === value) || null);
+    setSelectedOption(options.find(option => option.value === value) || null);
   }, [value, options]);
 
   useEffect(() => {
@@ -30,16 +51,10 @@ export const SelectDropdown = ({ options, value, onChange, placeholder }: Select
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const toggleOpen = () => setIsOpen(prev => !prev);
-
-  const handleOptionClick = (option: Option) => {
-    setSelectedOption(option);
-    onChange(option.value);
-    setIsOpen(false);
-  };
 
   return (
     <div ref={selectRef} className={s.select_container}>
+
       <button
         type="button"
         onClick={toggleOpen}
@@ -47,9 +62,10 @@ export const SelectDropdown = ({ options, value, onChange, placeholder }: Select
       >
         <span>{selectedOption ? selectedOption.label : placeholder}</span>
         <span className={classNames(s.select_icon, {
-            [s.select_icon_open]: isOpen
+          [s.select_icon_open]: isOpen
         })}>&#9662;</span>
       </button>
+
       {isOpen && (
         <div className={s.select_dropdown}>
           {options.map(option => (
@@ -65,6 +81,7 @@ export const SelectDropdown = ({ options, value, onChange, placeholder }: Select
           ))}
         </div>
       )}
+
     </div>
   );
 };

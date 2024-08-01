@@ -43,6 +43,6 @@ export const getVentilationData = async ({
             }
         }
     } else {
-        return {error}
+        return { error: error || "Something went wrong!" }
     }
 }

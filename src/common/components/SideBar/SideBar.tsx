@@ -9,12 +9,18 @@ import { SideBarState } from '@/src/modules/ICUflow/constants';
 
 export const SideBar = ({ children, SideBarContent, onChangeState }: {children: ReactNode; SideBarContent: ReactNode; onChangeState: (state: SideBarState) => void;}) => {
 
+    //states
     const [currentToggleState, setCurrentToggleState] = useState(SideBarState.Expanded)
 
+
+    //functions
     const handleToggle = () => {
         setCurrentToggleState(prev => prev === SideBarState.Collapsed ? SideBarState.Expanded : SideBarState.Collapsed);
     }
 
+
+
+    //effects
     useEffect(() => {
         onChangeState(currentToggleState)
     }, [currentToggleState])

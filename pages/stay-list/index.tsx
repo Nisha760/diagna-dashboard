@@ -6,3 +6,5 @@ const Comp = () => {
 }
 
 export default Comp;
+
+//landing page for stay lists

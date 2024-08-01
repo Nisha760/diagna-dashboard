@@ -1,11 +1,8 @@
 import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import s from "@/styles/Home.module.css";
-import PatientStayList from "@/src/modules/ICUflow/components/Layouts/PatientsStayList";
 import Link from "next/link";
 
-const inter = Inter({ subsets: ["latin"] });
+import s from "@/styles/Home.module.css";
+
 
 export default function Home() {
   return (
